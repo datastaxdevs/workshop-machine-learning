@@ -19,8 +19,8 @@ A Hands-on Lab delivered by DataStax' Developer Advocates team. Want to learn th
 ### Installation
 
 ```
-git clone https://github.com/HadesArchitect/CaSpark.git
-cd CaSpark
+git clone https://github.com/DataStax-Academy/machine-learning-workshop-online.git
+cd machine-learning-workshop-online
 docker-compose up -d
 ```
 
