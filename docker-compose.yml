@@ -5,7 +5,7 @@ services:
     command: [ -s -k ] # Run with Search and Analytics capabilities enabled
     environment:
       DS_LICENSE: accept # Accept licence on start
-      JVM_EXTRA_OPTS: -Xmx2g -Xms2g 
+      JVM_EXTRA_OPTS: -Xmx4g -Xms4g 
     cap_add:
       - IPC_LOCK # Allow DSE to lock memory with mlock
     ulimits:
@@ -19,13 +19,14 @@ services:
       - "9077:9077"
       - "10000:10000"
   jupyter: # Jupyter Notebook
-    build: ./pyspark-cassandra
+    #build: ./pyspark-cassandra
+    image: hadesarchitect/jupyter-pyspark-cassandra
     volumes:
       - ./jupyter:/home/jovyan
     ports:
       - "8888:8888" # Exposes port to be available externally
     environment:
-      PYSPARK_SUBMIT_ARGS: '--packages datastax:spark-cassandra-connector:2.4.0-s_2.11 --conf spark.cassandra.connection.host=dse pyspark-shell'
+      PYSPARK_SUBMIT_ARGS: '--packages com.datastax.spark:spark-cassandra-connector_2.11:2.4.1 --conf spark.cassandra.connection.host=dse pyspark-shell'
     command: start-notebook.sh --NotebookApp.password='sha1:a536879cf56d:a895a85b375e09f7d6a8211cdcd0e87f16aa4e60'
   studio:  # Web interface for the Apache Cassandra and DataStax Enterprise
     image: datastax/dse-studio:6.7.0
